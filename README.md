@@ -56,12 +56,12 @@ See more info on how to sweep and load runs using grid in the [readme](https://g
 ## 5-hidden-layer fully connected architecture
 
 On parity MNIST
-```python
+```
 python -m grid mnist-FC-5L "python -m edm --arch mlp --act relu --L 5 --h 128 --alpha 32768 --dataset mnist_parity --pte 32768 --loss hinge --dynamics sgd --bs 16 --ckpt_grad_stats 128 --max_wall 10000" --seed_init "[i for i in range(5)]" --ptr "[1024, 2048, 4096, 8192, 16384]" --temp "[2**i for i in range(-13,3)]"
 ```
 
 On CIFAR animal
-```python
+```
 python -m grid cifar-FC-5L "python -m edm --arch mlp --act relu --L 5 --h 128 --alpha 32768 --dataset cifar_animal --pte 32768 --loss hinge --dynamics sgd --bs 16 --ckpt_grad_stats 128 --max_wall 10000" --seed_init "[i for i in range(5)]" --ptr "[1024, 2048, 4096, 8192, 16384]" --temp "[2**i for i in range(-13,3)]"
 ```
 
@@ -69,12 +69,12 @@ python -m grid cifar-FC-5L "python -m edm --arch mlp --act relu --L 5 --h 128 --
 ## MNAS
 
 On parity MNIST
-```python
+```
 python -m grid mnist-MNAS "python -m edm --arch mnas --act relu --L 1 --h 64 --alpha 32768 --dataset mnist_parity --pte 32768 --loss hinge --dynamics sgd --bs 16 --ckpt_grad_stats 128 --max_wall 10000" --seed_init "[i for i in range(5)]" --ptr "[1024, 2048, 4096, 8192, 16384]" --temp "[2**i for i in range(-20,1)]"
 ```
 
 On CIFAR animal
-```python
+```
 python -m grid cifar-MNAS "python -m edm --arch mnas --act relu --L 1 --h 64 --alpha 32768 --dataset cifar_animal --pte 32768 --loss hinge --dynamics sgd --bs 16 --ckpt_grad_stats 128 --max_wall 8000" --seed_init "[i for i in range(5)]" --ptr "[1024, 2048, 4096, 8192, 16384]" --temp "[2**i for i in range(-20,1)]"
 ```
 
