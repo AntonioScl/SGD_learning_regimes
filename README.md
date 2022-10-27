@@ -12,8 +12,8 @@ The results are saved in a `pickle` format compatible with [grid](https://github
 ## Paramters
 A list of some of the paramters:
 
-```--arch```    architecture \n
-```--act```    activation function
+`--arch`    architecture
+`--act`    activation function
 `--h`    width
 ```--L```   depth (for ```mlp``` architecture)
 ```--alpha```   alpha paramter, corresponding to initialization scale
