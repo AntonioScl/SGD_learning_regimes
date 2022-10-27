@@ -40,11 +40,6 @@ def main():
     parser.add_argument("--bs", type=int, default=None)
     parser.add_argument("--dt", type=float)
     parser.add_argument("--temp", type=float)
-    parser.add_argument("--gf_tol", type=float, default=1e-5)
-    parser.add_argument("--gf_mindt", type=float, default=1e-10)
-    parser.add_argument("--gf_maxdt", type=float, default=1.0)
-    parser.add_argument("--gf_rtol", type=float, default=1.4e-8)
-    parser.add_argument("--gf_atol", type=float, default=1.4e-8)
 
     parser.add_argument("--regularizer", type=str)
     parser.add_argument("--regu_scale", type=float, default=0.0)
@@ -60,6 +55,8 @@ def main():
     parser.add_argument("--ckpt_drift_n0", type=int, default=16)
     parser.add_argument("--ckpt_kernels", type=int, default=0)
     parser.add_argument("--ckpt_save_pred", type=int, default=0)
+    parser.add_argument("--ckpt_modulo", type=int, default=1)
+    parser.add_argument("--ckpt_save_gradoverlap", type=int, default=0)
     parser.add_argument("--ckpt_save_mult", type=int, default=0)  # Save observables at log-spaced steps up to step ckpt_save_mult
 
     parser.add_argument("--dtype", type=str, default="f32")

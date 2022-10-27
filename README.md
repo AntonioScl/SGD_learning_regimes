@@ -12,9 +12,9 @@ The results are saved in a `pickle` format compatible with [grid](https://github
 ## Paramters
 A list of some of the paramters:
 
-```--arch```    architecture
+```--arch```    architecture \n
 ```--act```    activation function
-```--h```    width
+`--h`    width
 ```--L```   depth (for ```mlp``` architecture)
 ```--alpha```   alpha paramter, corresponding to initialization scale
 ```--dataset```   dataset
@@ -115,5 +115,5 @@ python -m grid cifar-alpha_dt-MNAS "python -m edm --arch mnas --act relu --h 32 
 ## Perceptron
 
 ```
-python -m grid depleted_perceptron "python -m edm --arch linear --alpha 32768 --dataset depleted_sign --pte 32768 --loss hinge --dynamics sgd --bs 2 --ckpt_grad_stats 512 --max_wall 10000" --seed_init "[i for i in range(5)]" --data_chi "[3.0, 1.0, 0.0]" --d "[16, 32, 64, 128]" --ptr "[1024, 2048, 4096, 8192, 16384]" --dt "[2**i for i in range(-15,3)]"
+python -m grid depleted_perceptron "python -m edm --arch linear --alpha 32768 --dataset depleted_sign --pte 32768 --loss hinge --dynamics sgd --bs 2 --ckpt_grad_stats 512 --max_wall 10000 --ckpt_save_mult 1000000" --seed_init "[i for i in range(5)]" --data_chi "[3.0, 1.0, 0.0]" --d "[16, 32, 64, 128]" --ptr "[1024, 2048, 4096, 8192, 16384]" --dt "[2**i for i in range(-15,3)]"
 ```

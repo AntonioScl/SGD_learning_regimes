@@ -451,7 +451,7 @@ def train(
         dynamics.append(jax.tree_map(np.asarray, state))
 
         if args['ckpt_save_gradoverlap']:
-            del grad_f_tr, grad_l_te, grad_f_te # Need to keep grad_l_tr for the non-linear measure
+            del grad_f_tr, grad_l_te, grad_f_te # Need to keep grad_l_tr for the non-linearity measure "cumul_batch_g_norm"
         else:
             del grad_l_tr, grad_f_tr, grad_l_te, grad_f_te
 
