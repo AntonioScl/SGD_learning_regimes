@@ -13,6 +13,7 @@ The results are saved in a `pickle` format compatible with [grid](https://github
 A list of some of the paramters:
 
 `--arch`    architecture
+
 `--act`    activation function
 `--h`    width
 ```--L```   depth (for ```mlp``` architecture)
