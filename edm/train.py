@@ -120,6 +120,7 @@ def train(
     dyn_until, f, w0, xtr, xte, ytr, yte, bs, dt, seed_batch, alpha, loss,
     ckpt_modulo, ckpt_save_parameters,
     ckpt_grad_stats, ckpt_kernels, ckpt_drift_n0, ckpt_save_pred, ckpt_drift, ckpt_delta_pred,
+    gf_tol, gf_mindt, gf_maxdt,
     max_wall, max_step, mind_stop, **args
 ):
     assert 'dataset' in args
@@ -245,7 +246,7 @@ def train(
                     current_loss,
                     target_below,
                     target_above,
-                    1 if step < ckpt_save_all else (max(1,step) if step < args['ckpt_save_mult'] else ckpt_step),
+                    max(1,step) if step < args['ckpt_save_mult'] else ckpt_step,
                     gf_dt,
                     (jit_gradloss(w, out0tr[:ckpt_grad_stats], xtr[:ckpt_grad_stats], ytr[:ckpt_grad_stats]) if grad_l_tr is None else grad_l_tr) if args['ckpt_save_gradoverlap'] else None,
                 )
@@ -273,9 +274,6 @@ def train(
                     break
 
                 if (time.perf_counter() - wtrain) > 5.0 * (wall_ckpt / len(dynamics)):
-                    break
-
-                if step < ckpt_save_all:
                     break
 
                 if step < args['ckpt_save_mult'] and 2*num_step_ok>=step:

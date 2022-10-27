@@ -35,7 +35,7 @@ def sgd(regu, only_unfit_marg, f, loss, bs, dt, key, w, out0, xtr, ytr, tot_grad
     return key, w, -minus_loss, g_overlap
 
 
-def sgd_until(regu, only_unfit_marg, label_noise, f, loss, bs, dt, key, w, out0, xtr, ytr, last_loss, target_below, target_above, max_step, gf_dt, loss_grad=None):
+def sgd_until(regu, only_unfit_marg, f, loss, bs, dt, key, w, out0, xtr, ytr, last_loss, target_below, target_above, max_step, gf_dt, loss_grad=None):
     # if loss_grad is None: loss_grad = flatten_grad(w)
 
     def cond(state):
@@ -44,7 +44,7 @@ def sgd_until(regu, only_unfit_marg, label_noise, f, loss, bs, dt, key, w, out0,
 
     def body(state):
         key, w, old_loss, cum_g_norm, i, old_t = state
-        key, w, batch_loss, batch_g_norm = sgd(regu, only_unfit_marg, label_noise, f, loss, bs, dt, key, w, out0, xtr, ytr, loss_grad)
+        key, w, batch_loss, batch_g_norm = sgd(regu, only_unfit_marg, f, loss, bs, dt, key, w, out0, xtr, ytr, loss_grad)
         new_loss = ((xtr.shape[0] - bs) * old_loss + bs * batch_loss) / xtr.shape[0]
         cum_g_norm += batch_g_norm
         return key, w, new_loss, cum_g_norm, i + 1, old_t + dt
@@ -60,7 +60,7 @@ def flatten_grad(g):
         ], 0)
 
 
-def gd_sde(regu, only_unfit_marg, label_noise, f, loss, bs, dt, key, w, out0, xtr, ytr, tot_grad):
+def gd_sde(regu, only_unfit_marg, f, loss, bs, dt, key, w, out0, xtr, ytr, tot_grad):
     if only_unfit_marg:
         unfitted = (f(w, xtr) - out0) * ytr < only_unfit_marg
         x = xtr[unfitted]
@@ -70,10 +70,6 @@ def gd_sde(regu, only_unfit_marg, label_noise, f, loss, bs, dt, key, w, out0, xt
         x = xtr
         y = ytr
         o0 = out0
-
-    if label_noise:
-        key, k = jax.random.split(key)
-        y = y + label_noise * (2*jax.random.bernoulli(k, shape=y.shape)-1)
 
     key, k = jax.random.split(key)
     noise = jax.random.normal(k, (x.shape[0],))
@@ -96,7 +92,7 @@ def gd_sde(regu, only_unfit_marg, label_noise, f, loss, bs, dt, key, w, out0, xt
     return key, w, -minus_loss, g_overlap
 
 
-def gd_sde_until(regu, only_unfit_marg, label_noise, f, loss, bs, dt, key, w, out0, xtr, ytr, last_loss, target_below, target_above, max_step, gf_dt, loss_grad=None):
+def gd_sde_until(regu, only_unfit_marg, f, loss, bs, dt, key, w, out0, xtr, ytr, last_loss, target_below, target_above, max_step, gf_dt, loss_grad=None):
 
     def cond(state):
         key, w, current_loss, batch_g_norm, i, t = state
@@ -104,9 +100,10 @@ def gd_sde_until(regu, only_unfit_marg, label_noise, f, loss, bs, dt, key, w, ou
 
     def body(state):
         key, w, old_loss, cum_g_norm, i, old_t = state
-        key, w, new_loss, batch_g_norm = gd_sde(regu, only_unfit_marg, label_noise, f, loss, bs, dt, key, w, out0, xtr, ytr, loss_grad)
+        key, w, new_loss, batch_g_norm = gd_sde(regu, only_unfit_marg, f, loss, bs, dt, key, w, out0, xtr, ytr, loss_grad)
         cum_g_norm += batch_g_norm
         return key, w, new_loss, cum_g_norm, i + 1, old_t + dt
 
     key, w, current_loss, cum_g_norm, i, t = jax.lax.while_loop(cond, body, (key, w, last_loss, 0.0, 0, 0.0))
     return key, w, current_loss, i, i, t, gf_dt, cum_g_norm
+    
