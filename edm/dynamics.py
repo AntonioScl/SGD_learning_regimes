@@ -4,7 +4,7 @@ from functools import reduce
 import operator
 
 
-def sgd(regu, only_unfit_marg, label_noise, f, loss, bs, dt, key, w, out0, xtr, ytr, tot_grad):
+def sgd(regu, only_unfit_marg, f, loss, bs, dt, key, w, out0, xtr, ytr, tot_grad):
     if only_unfit_marg:
         key, k = jax.random.split(key)
         perm_i = jax.random.permutation(k, xtr.shape[0])
@@ -23,10 +23,6 @@ def sgd(regu, only_unfit_marg, label_noise, f, loss, bs, dt, key, w, out0, xtr, 
         x = xtr
         y = ytr
         o0 = out0
-
-    if label_noise:
-        key, k = jax.random.split(key)
-        y = y + label_noise * (2*jax.random.bernoulli(k, shape=y.shape)-1)
 
     minus_loss, g = jax.value_and_grad(lambda w: -jnp.mean(loss(f(w, x) - o0, y)))(w)
     g = jax.tree_map(lambda a, b: a + b, regu(lambda w: (f(w, x) - o0, y), loss, w), g)
