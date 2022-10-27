@@ -1,0 +1,8 @@
+edm/__pycache__
+mnist-FC-5L
+cifar-FC-5L
+mnist-MNAS
+cifar-MNAS
+cifar-alpha_dt-MNAS
+mnist-alpha_dt-FC-5L
+depleted_perceptron

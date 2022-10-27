@@ -199,3 +199,16 @@ def linear_observables(w, w0, x, y, pred, alpha, args):
         wx =  None, #linear_predictor_components(w['linear']['w']-w0['linear']['w'], d_perp+1, x, y, teacher),
         mean_x1_unfit=jnp.mean(abs(x@teacher)[alpha * (x@(ww-ww0)) * y < 1.0]),
     )
+
+
+@jax.jit
+def mean_relative_distance(x):
+    """
+    Compute the mean relative distance between vectors
+    Equivalent to:
+    jnp.sum((x[None, :, :] - x[:, None, :])**2) / (n**2 - n)
+    """
+    if x.ndim == 1:
+        x = x[:, None]
+    n = x.shape[0]
+    return 2.0 / (n - 1) * jnp.sum(jnp.sum(x**2, 1) - jnp.sum(x * jnp.mean(x, 0), 1))

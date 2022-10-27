@@ -12,22 +12,22 @@ The results are saved in a `pickle` format compatible with [grid](https://github
 ## Paramters
 A list of some of the paramters:
 
-```--arch```    architecture
-```--act```    activation function
-```--h```    width
-```--L```   depth (for ```mlp``` architecture)
-```--alpha```   alpha paramter, corresponding to initialization scale
-```--dataset```   dataset
-```--ptr```   number of training points
-```--pte```   number of test points
-```--loss```   loss function
-```--dynamics```   training dynamics
-```--bs```  batch size for ```sgd``` dynamics
-```--dt```   learning rate
-```--temp```   temperature, defined as ```dt/(bs * h)``` (it is alternative to defining the learning rate)
-```--ckpt_grad_stats```     number of train (test) points to compute the Gram matrix of the neural tangent kernel
-```--max_wall```     maximum wall time (in seconds)
- ```--seed_init```  initialization seed
+`--arch`    architecture  
+`--act`    activation function  
+`--h`    width  
+`--L`   depth (for `mlp` architecture)  
+`--alpha`   alpha paramter, corresponding to initialization scale  
+`--dataset`   dataset  
+`--ptr`   number of training points  
+`--pte`   number of test points  
+`--loss`   loss function  
+`--dynamics`   training dynamics  
+`--bs`  batch size for `sgd` dynamics  
+`--dt`   learning rate  
+`--temp`   temperature, defined as `dt/(bs * h)` (it is alternative to defining the learning rate)  
+`--ckpt_grad_stats`     number of train (test) points to compute the Gram matrix of the neural tangent kernel  
+`--max_wall`     maximum wall time (in seconds)  
+`--seed_init`  initialization seed  
 
 
 ## Tuto: execute a single training
@@ -115,5 +115,5 @@ python -m grid cifar-alpha_dt-MNAS "python -m edm --arch mnas --act relu --h 32 
 ## Perceptron
 
 ```
-python -m grid depleted_perceptron "python -m edm --arch linear --alpha 32768 --dataset depleted_sign --pte 32768 --loss hinge --dynamics sgd --bs 2 --ckpt_grad_stats 512 --max_wall 10000" --seed_init "[i for i in range(5)]" --data_chi "[3.0, 1.0, 0.0]" --d "[16, 32, 64, 128]" --ptr "[1024, 2048, 4096, 8192, 16384]" --dt "[2**i for i in range(-15,3)]"
+python -m grid depleted_perceptron "python -m edm --arch linear --alpha 32768 --dataset depleted_sign --pte 32768 --loss hinge --dynamics sgd --bs 2 --ckpt_grad_stats 512 --max_wall 10000 --ckpt_save_mult 1000000" --seed_init "[i for i in range(5)]" --data_chi "[3.0, 1.0, 0.0]" --d "[16, 32, 64, 128]" --ptr "[1024, 2048, 4096, 8192, 16384]" --dt "[2**i for i in range(-15,3)]"
 ```
