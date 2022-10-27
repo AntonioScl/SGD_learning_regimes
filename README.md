@@ -12,22 +12,22 @@ The results are saved in a `pickle` format compatible with [grid](https://github
 ## Paramters
 A list of some of the paramters:
 
- `--arch \n`    architecture
- `--act`    activation function
- `--h`    width
-```--L```   depth (for ```mlp``` architecture)
-```--alpha```   alpha paramter, corresponding to initialization scale
-```--dataset```   dataset
-```--ptr```   number of training points
-```--pte```   number of test points
-```--loss```   loss function
-```--dynamics```   training dynamics
-```--bs```  batch size for ```sgd``` dynamics
-```--dt```   learning rate
-```--temp```   temperature, defined as ```dt/(bs * h)``` (it is alternative to defining the learning rate)
-```--ckpt_grad_stats```     number of train (test) points to compute the Gram matrix of the neural tangent kernel
-```--max_wall```     maximum wall time (in seconds)
- ```--seed_init```  initialization seed
+`--arch`    architecture  
+`--act`    activation function  
+`--h`    width  
+`--L`   depth (for `mlp` architecture)  
+`--alpha`   alpha paramter, corresponding to initialization scale  
+`--dataset`   dataset  
+`--ptr`   number of training points  
+`--pte`   number of test points  
+`--loss`   loss function  
+`--dynamics`   training dynamics  
+`--bs`  batch size for `sgd` dynamics  
+`--dt`   learning rate  
+`--temp`   temperature, defined as `dt/(bs * h)` (it is alternative to defining the learning rate)  
+`--ckpt_grad_stats`     number of train (test) points to compute the Gram matrix of the neural tangent kernel  
+`--max_wall`     maximum wall time (in seconds)  
+`--seed_init`  initialization seed  
 
 
 ## Tuto: execute a single training
