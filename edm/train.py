@@ -616,13 +616,13 @@ def execute(regularizer, regu_scale, dynamics, yield_time=0.0, **args):
         raise ValueError(f"unknown regularizer {regularizer}. known: norm_grad_loss, norm_grad_net, l2, l1")
 
     if dynamics == 'sgd':
-        dyn_until = partial(sgd_until, regu, 0, args['label_noise'])
+        dyn_until = partial(sgd_until, regu, 0)
     if dynamics == 'sgd_only_unfit':
-        dyn_until = partial(sgd_until, regu, 1/args['alpha'], args['label_noise'])
+        dyn_until = partial(sgd_until, regu, 1/args['alpha'])
     if dynamics == 'gd_sde':
-        dyn_until = partial(gd_sde_until, regu, 0, args['label_noise'])
+        dyn_until = partial(gd_sde_until, regu, 0)
     if dynamics == 'gd_sde_only_unfit':
-        dyn_until = partial(gd_sde_until, regu, 1/args['alpha'], args['label_noise'])
+        dyn_until = partial(gd_sde_until, regu, 1/args['alpha'])
 
     wall_yield = 0
 
