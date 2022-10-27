@@ -3,7 +3,7 @@ Code for reproducing the paper "How SGD noise affects performance in distinct re
 
 
 What this code does:
-1. Accepts many different [parameters]
+1. Accepts many different [parameters](https://github.com/AntonioScl/SGD_learning_regimes/blob/main/edm/__main__.py)
 2. Perform a single training of a neural network (depending on the parameters)
 3. Compute and save observables during and at the end of the trianing (depending on the parameters)
 
